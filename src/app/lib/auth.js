@@ -32,13 +32,15 @@ export const setToken = (token) => {
 };
 
 export const refreshToken = async () => {
-  try {
-    const refresh = localStorage.getItem('refresh_token');
-    const response = await api.post('token/refresh/', { refresh });
-    const { access } = response.data;
-    setToken(access);
-  } catch (error) {
-    console.error('Erro ao atualizar token:', error);
-    logout();
-  }
-};
+    try {
+      const refresh = localStorage.getItem('refresh_token');
+      const response = await api.post('token/refresh/', { refresh });
+      const { access } = response.data;
+      setToken(access);
+    } catch (error) {
+      console.error('Erro ao atualizar token:', error);
+      logout(); // Call logout on refresh token error
+    }
+  };
+
+
